@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Refiner</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f5fa; color: #172338; font: 17px/1.6 system-ui, sans-serif; }
+  main { max-width: 760px; margin: 48px auto; padding: 28px; }
+  h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.1; margin: 12px 0; }
+  .tag { color: #5044a6; font-weight: 700; }
+  label { display: block; margin-top: 22px; font-weight: 600; }
+  textarea { width: 100%; padding: 14px; border: 1px solid #8994a6; border-radius: 12px; font: inherit; resize: vertical; background: white; color: inherit; }
+  button { margin-top: 16px; padding: 12px 20px; background: #4435a3; color: white; border: 0; border-radius: 10px; font: inherit; cursor: pointer; }
+  :focus-visible { outline: 3px solid #bd5a00; outline-offset: 3px; }
+  small { display: block; color: #48576e; }
+</style>
+<main>
+  <span class="tag">AGENT PLAYGROUND · FIRST PROJECT</span>
+  <h1>Give your idea a clearer brief.</h1>
+  <p>Turn a rough goal into a structured prompt. AI-inspired, template-powered: no model calls, accounts, or network requests.</p>
+  <form id="refiner">
+    <label for="goal">What would you like to accomplish?</label>
+    <textarea id="goal" rows="3" required maxlength="5000" placeholder="For example: Help me learn Git with a small weekend project"></textarea>
+    <label for="context">Context or constraints <small>Optional: audience, time, tools, or preferred format.</small></label>
+    <textarea id="context" rows="2" maxlength="5000" placeholder="I am a beginner and have two hours."></textarea>
+    <button type="submit">Refine my prompt</button>
+  </form>
+  <label for="output">Your structured prompt</label>
+  <textarea id="output" rows="12" readonly placeholder="Your prompt will appear here. Select and copy it into your preferred assistant."></textarea>
+  <p id="status" role="status"></p>
+  <small>Your input stays on this page and is cleared when you reload.</small>
+</main>
+<script>
+  function refinePrompt(goal, context) {
+    return `Goal\n${goal.trim()}\n\nContext and constraints\n${context.trim() || 'No additional context provided.'}\n\nApproach\nUse clear, practical steps. State important assumptions. Ask a clarifying question only if missing information would materially change the result.\n\nDeliverable\nProvide a useful result that addresses the goal and respects the constraints. Explain unfamiliar concepts briefly.\n\nQuality check\nCheck the result against the goal, identify limitations, and suggest a concrete next step.`;
+  }
+  document.getElementById('refiner').addEventListener('submit', event => {
+    event.preventDefault();
+    const goal = document.getElementById('goal');
+    if (!goal.value.trim()) {
+      document.getElementById('status').textContent = 'Enter a goal with at least one non-space character.';
+      goal.focus();
+      return;
+    }
+    document.getElementById('output').value = refinePrompt(goal.value, document.getElementById('context').value);
+    document.getElementById('status').textContent = 'Prompt ready. Select the output to copy it.';
+  });
+</script>
+</html>
