@@ -1,16 +1,21 @@
-# Agent Playground
+# Agent Playground — Prompt Refiner
 
-Use this small repository to learn coding agents and Git without affecting real projects.
+A tiny first project for learning coding agents, Git branches, and pull requests. Prompt Refiner turns a rough goal and optional context into a structured brief you can copy into an assistant.
 
-## Local and remote
+## Run locally
 
-The repository on this Mac is **local**: commits and branches stay here. A **remote** is a copy hosted by a service such as GitHub. This repository has no remote yet, so nothing is published and no account setup is required.
+Open `index.html` in a browser. No installation, server, account, or API key is needed.
 
-## First exercise
+Enter a goal, optionally add constraints, and select **Refine my prompt**. Select and copy the generated text to use it elsewhere.
 
-1. Ask an agent to make a small documentation change.
-2. Review `git status` and `git diff`.
-3. Create a branch and commit the change.
-4. Later, add a test remote, push the branch, and open a pull request.
+## How it works
 
-Keep experiments disposable, follow `AGENTS.md`, and never store secrets here.
+This tool is AI-inspired, not AI-powered: JavaScript combines your input with a fixed template. It does not call a model, send network requests, or save your input. Reloading clears the form.
+
+All HTML, styles, and logic live in `index.html`. Inputs are treated as text, not executable HTML. Follow `AGENTS.md` when making changes.
+
+## Git practice
+
+A local repository stores commits on your Mac; a remote hosts a copy on GitHub. A branch keeps changes separate from `main`, and a pull request presents those changes for review before merging.
+
+For a manual check, try a normal goal, optional context, and an empty or whitespace-only goal. Confirm that the output preserves your text and empty goals are rejected.
