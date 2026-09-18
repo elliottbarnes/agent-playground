@@ -1,6 +1,6 @@
 # Agent Playground — Prompt Refiner
 
-A tiny first project for learning coding agents, Git branches, and pull requests. Prompt Refiner turns a rough goal and optional context into a structured brief you can copy into an assistant.
+A tiny first project for learning coding agents. Prompt Refiner turns a rough goal and optional context into a structured brief you can copy into an assistant.
 
 ## Run locally
 
