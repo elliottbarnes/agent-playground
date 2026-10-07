@@ -1,21 +1,29 @@
 # Agent Playground — Prompt Refiner
 
-A tiny first project for learning coding agents. Prompt Refiner turns a rough goal and optional context into a structured brief you can copy into an assistant.
+A small, complete first coding-agent project: turn a rough goal and optional context into a structured brief, review it, and copy it into an assistant.
+
+**[Use the interactive demo](https://elliottbarnes.github.io/agent-playground/)**
+
+Try the built-in example, enter your own goal, refine, copy, or clear the workspace. Editing an input clears the old output so you cannot accidentally copy a stale brief. If clipboard permission is unavailable, the app selects the output for manual copying.
 
 ## Run locally
 
-Open `index.html` in a browser. No installation, server, account, or API key is needed.
+Node.js 24+ runs checks; Python 3 serves the browser modules. No dependencies, accounts, or keys are needed.
 
-Enter a goal, optionally add constraints, and select **Refine my prompt**. Select and copy the generated text to use it elsewhere.
+```sh
+node --test
+node scripts/check-demo.mjs
+python3 -m http.server 4177 --bind 127.0.0.1 --directory demo
+```
+
+Open **http://localhost:4177**. Serve over HTTP; opening the module files directly with `file://` is unsupported.
 
 ## How it works
 
-This tool is AI-inspired, not AI-powered: JavaScript combines your input with a fixed template. It does not call a model, send network requests, or save your input. Reloading clears the form.
+`demo/core.js` combines text with a fixed template. `demo/app.js` manages the form and clipboard. Text stays in memory, is never interpreted as HTML, and clears on reload. There are no model calls, analytics, remote assets, persistence, or prompt submissions. The result is a structured version of the input, not researched or fact-checked advice.
 
-All HTML, styles, and logic live in `index.html`. Inputs are treated as text, not executable HTML. Follow `AGENTS.md` when making changes.
+Tests cover empty and whitespace goals, size limits, text preservation, and brief structure. Browser checks cover generate/edit/reset/example, clipboard fallback, and mobile layout. The workflow tests pull requests, then publishes only the explicit `demo/` directory on main. All actions are pinned; Pages permissions belong only to the deployment job.
 
 ## Git practice
 
-A local repository stores commits on your Mac; a remote hosts a copy on GitHub. A branch keeps changes separate from `main`, and a pull request presents those changes for review before merging.
-
-For a manual check, try a normal goal, optional context, and an empty or whitespace-only goal. Confirm that the output preserves your text and empty goals are rejected.
+A local repository stores commits; a remote hosts a copy on GitHub. A branch separates a change from `main`, and a pull request presents it for review. Follow [AGENTS.md](AGENTS.md) for repository working guidance.
